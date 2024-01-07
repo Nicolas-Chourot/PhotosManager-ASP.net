@@ -1,0 +1,84 @@
+﻿@{
+    var connectedUser = (PhotosManager.Models.User)Session["connectedUser"];
+}
+
+@Helper.ImageLink("Photos", "List", "~/content/images/PhotoCloudLogo.png", "appLogo", "Liste des photos")
+
+<span class="viewTitle">
+    @ViewBag.Title
+    @if (ViewBag.Title == "Liste des photos")
+    {
+        <a href="/Photos/Create" class="cmdIcon fa fa-plus" id="addPhotoCmd" title="Ajouter une photo"></a>
+    }
+</span>
+
+<div class="headerMenusContainer">
+    <span>&nbsp</span> <!--filler-->
+    @Helper.AvatarProfilLink(connectedUser)
+    <div class="dropdown ms-auto dropdownLayout">
+        <div data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="cmdIcon fa fa-ellipsis-v"></i>
+        </div>
+        <div class="dropdown-menu noselect">
+            @if (connectedUser == null)
+            {
+                <a href="/Accounts/Login" class="dropdown-item" id="loginCmd">
+                    <i class="menuIcon fa fa-sign-in mx-2"></i> Connexion
+                </a>
+            }
+            else
+            {
+                if (connectedUser.IsAdmin)
+                {
+                    <a href="/Accounts/ManageUsers" class="dropdown-item">
+                        <i class="menuIcon fas fa-user-cog mx-2"></i> Gestion des usagers
+                    </a>
+                    <div class="dropdown-divider"></div>
+                }
+                <a href="/Accounts/Logout" class="dropdown-item">
+                    <i class="menuIcon fa fa-sign-out mx-2"></i> Déconnexion
+                </a>
+                <a href="/Accounts/EditProfil" class="dropdown-item">
+                    <i class="menuIcon fa fa-user-edit mx-2"></i> Modifier votre profil
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="/Photos/List" class="dropdown-item">
+                    <i class="menuIcon fa fa-image mx-2"></i> Liste des photos
+                </a>
+                if (ViewBag.Title == "Liste des photos")
+                {
+                    string sortType = Session["PhotosSortType"] != null ? (string)Session["PhotosSortType"] : "date";
+
+                    string checkIcon = "<i class='menuIcon fa fa-check mx-2'></i>";
+                    string uncheckIcon = "<i class='menuIcon fa fa-fw mx-2'></i>";
+                    string sortByDateCheck = (sortType == "date") ? checkIcon : uncheckIcon;
+                    string sortByLikeCheck = (sortType == "likes") ? checkIcon : uncheckIcon;
+                    string sortByUser = (sortType == "user") ? checkIcon : uncheckIcon;
+                    string sortByKeywords = (sortType == "keywords") ? checkIcon : uncheckIcon;
+                    string ownerOnly = (sortType == "owner") ? checkIcon : uncheckIcon;
+
+                    <a href="/Photos/List?sortType=date" class="dropdown-item">
+                        @Html.Raw(sortByDateCheck) <i class="menuIcon fa fa-calendar mx-2"></i>Photos par date de création
+                    </a>
+                    <a href="/Photos/List?sortType=likes" class="dropdown-item">
+                        @Html.Raw(sortByLikeCheck) <i class="menuIcon fa fa-heart mx-2"></i>Photos les plus aimées
+                    </a>
+                    <a href="/Photos/List?sortType=keywords" class="dropdown-item">
+                        @Html.Raw(sortByKeywords) <i class="menuIcon fa fa-search mx-2"></i>Photos par mots-clés
+                    </a>
+                    <a href="/Photos/List?sortType=user" class="dropdown-item">
+                        @Html.Raw(sortByUser) <i class="menuIcon fa fa-users mx-2"></i>Photos par créateur
+                    </a>
+                    <a href="/Photos/List?sortType=owner" class="dropdown-item">
+                        @Html.Raw(ownerOnly) <i class="menuIcon fa fa-user mx-2"></i>Mes photos
+                    </a>
+                }
+            }
+            <div class="dropdown-divider"></div>
+            <a href="/Home/About" class="dropdown-item" id="aboutCmd">
+                <i class="menuIcon fa fa-info-circle mx-2"></i> À propos...
+            </a>
+        </div>
+    </div>
+
+</div>

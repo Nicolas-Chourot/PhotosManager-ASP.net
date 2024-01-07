@@ -1,0 +1,95 @@
+﻿
+.UserRow {
+    padding: 0px;
+    padding-bottom: 0px;
+    scroll-snap-align: start;
+}
+
+.UserContainer {
+    display: grid;
+    grid-template-columns: auto 110px;
+    align-items: top;
+}
+
+.UserCommandPanel {
+    display: grid;
+    grid-template-columns: 35px 35px 35px;
+    align-items: center;
+    margin-right: 5px;
+}
+
+.UserContainer .cmdIcon {
+    display: none;
+}
+
+.UserContainer:hover .cmdIcon {
+    display: block;
+}
+
+.cmdIconVisible {
+    display: block !important;
+    font-size: 1.5rem;
+    -webkit-text-stroke-color: white;
+    text-align: center;
+    margin: 2px;
+    cursor: pointer;
+}
+
+.redCmd {
+    color: red !important;
+}
+
+.greenCmd {
+    color: rgb(0, 189, 0) !important;
+}
+
+.goldenrodCmd {
+    color: goldenrod !important;
+}
+
+.UserLayout {
+    display: grid;
+    grid-template-columns: 60px auto;
+    padding: 6px;
+    gap: 4px;
+    align-items: center;
+    text-align: left;
+}
+
+.UserInfo {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 10px;
+    gap: 8px;
+    align-items: center;
+}
+
+.UserName {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.UserEmail {
+    font-size: 0.8rem;
+    color: blue;
+}
+
+.UserAvatar {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+}
+
+.UserSmallAvatar {
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    color: white;
+    border: 2px solid white;
+}

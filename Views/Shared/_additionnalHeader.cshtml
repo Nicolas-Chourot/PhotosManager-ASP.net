@@ -1,0 +1,30 @@
+﻿@if (ViewBag.Title == "Liste des photos")
+{
+    if ((string)Session["PhotosSortType"] == "user")
+    {
+        int photoOwnerSearchId = Session["photoOwnerSearchId"] != null ? (int)Session["photoOwnerSearchId"] : 0;
+        var users = PhotosManager.Models.DB.Users.ToList().OrderBy(u => u.Name);
+
+        <div class="searchContainer">
+            <select class="form-select userSelector" id="userSelector">
+                <option value="0">Tous les usagers</option>
+                @foreach (var user in users)
+                {
+                    string selected = user.Id == photoOwnerSearchId ? "selected" : "";
+                    <option value="@user.Id" @selected>@user.Name</option>
+                }
+            </select>
+            <i class="cmdIcon fa fa-search" id="setPhotoOwnerSearchIdCmd"></i>
+        </div>
+    }
+
+    if ((string)Session["PhotosSortType"] == "keywords")
+    {
+        string keywords = (string)Session["searchKeywords"];
+
+        <div class="searchContainer">
+            <input type="search" class="form-control" placeholder="Recherche par mots-clés" id="keywords" value="@keywords" />
+            <i class="cmdIcon fa fa-search" id="setSearchKeywordsCmd"></i>
+        </div>
+    }
+}

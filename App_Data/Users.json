@@ -1,0 +1,38 @@
+[
+  {
+    "Id": 1,
+    "Name": "Nicolas Chourot",
+    "Email": "Nicolas.Chourot@clg.qc.ca",
+    "Password": "password",
+    "AccessType": 1,
+    "Blocked": false,
+    "Avatar": "/Images_Data/Users_Avatars/b67b1459-de20-49c0-8205-33f218e6a644.jpeg"
+  },
+  {
+    "Id": 2,
+    "Name": "Saliha Yacoub",
+    "Email": "Saliha.Yacoub@clg.qc.ca",
+    "Password": "password",
+    "AccessType": 0,
+    "Blocked": false,
+    "Avatar": "/Images_Data/Users_Avatars/6035d52d-c2f8-445a-ac30-5deff4e9c5fd.jpeg"
+  },
+  {
+    "Id": 3,
+    "Name": "Stéphane Chassé",
+    "Email": "Stephane.Chasse@clg.qc.ca",
+    "Password": "password",
+    "AccessType": 0,
+    "Blocked": false,
+    "Avatar": "/Images_Data/Users_Avatars/70e8bebf-b2b2-4c03-bad8-68eed5c8c3b0.png"
+  },
+  {
+    "Id": 4,
+    "Name": "Patrice Roy",
+    "Email": "Patrice.Roy@clg.qc.ca",
+    "Password": "password",
+    "AccessType": 0,
+    "Blocked": false,
+    "Avatar": "/Images_Data/Users_Avatars/1c258dba-fc22-4f34-9807-c46a0f120a20.png"
+  }
+]

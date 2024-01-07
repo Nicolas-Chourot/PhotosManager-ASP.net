@@ -1,0 +1,104 @@
+﻿
+.photosLayout {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 360px);
+    gap: 10px;
+    padding: 10px;
+}
+
+.photoLayout {
+    flex: 1;
+    scroll-snap-align: start;
+    margin: 0px;
+}
+
+.photoImage {
+    display: flex;
+    gap: 5px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 355px;
+    height: 265px;
+    border-radius: 9px;
+    padding: 5px;
+}
+
+.photoTitleContainer {
+    height: 40px;
+    display: grid;
+    grid-template-columns: auto 25px 25px;
+    align-items: center;
+    cursor: default;
+}
+
+
+.photoTitle {
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(0, 87, 204);
+}
+
+.photoDetailsOwner {
+    display: grid;
+    grid-template-columns: 50px auto;
+    margin: 5px;
+    font-size: 1.2em;
+    font-weight: bold;
+    align-items: center;
+    gap: 5px;
+}
+
+.photoDetailsTitle {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 5px;
+}
+
+.photoDetailsDescription {
+    color: black;
+    font-size: 1.2em;
+    margin: 5px;
+    text-align: justify;
+}
+
+.photoDetailsCreationDate {
+    color: dodgerblue;
+    margin: 5px;
+}
+
+.photoDetailsLargeImage {
+    width: 100%;
+    object-fit: cover;
+    padding: 5px;
+}
+
+.likesSummary {
+    display: grid;
+    grid-template-columns: 60px 30px;
+    align-items: center;
+    text-align: right;
+}
+
+.photoCreationDate {
+    font-size: 0.8em !important;
+    color: dodgerblue;
+    display: grid;
+    grid-template-columns: auto 95px;
+    align-items: center;
+}
+
+.photoDetailsCreationDate {
+    color: dodgerblue;
+    margin: 5px;
+    display: grid;
+    grid-template-columns: auto 95px;
+    align-items: center;
+}
+
+.photoDetailsLargeImage {
+    width: 100%;
+    object-fit: cover;
+    padding: 5px;
+}

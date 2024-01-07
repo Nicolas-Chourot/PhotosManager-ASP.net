@@ -1,0 +1,45 @@
+﻿@model PhotosManager.Models.Photo
+@{
+    ViewBag.Title = "Nouvelle photo";
+    int ownerId = ((PhotosManager.Models.User)Session["ConnectedUser"]).Id;
+}
+
+<div class="content loginForm">
+    <br>
+    <form method='post' action='/Photos/Create'>
+        <input type="hidden" name="OwnerId" value=@ownerId>
+        <fieldset>
+            <legend>Informations</legend>
+            <input type="text"
+                   class="form-control Alpha"
+                   name="Title"
+                   id="Title"
+                   placeholder="Titre"
+                   required
+                   RequireMessage='Veuillez entrer un titre'
+                   InvalidMessage='Le titre contient des caractères spéciaux' />
+
+            <textarea class="form-control Alpha"
+                      name="Description"
+                      id="Description"
+                      placeholder="Description"
+                      rows="4"
+                      required
+                      RequireMessage='Veuillez entrer une Description'></textarea>
+
+            @Html.CheckBoxFor(m => m.Shared)
+            <label for="Shared">Partagée</label>
+        </fieldset>
+        <fieldset>
+            <legend>Photo</legend>
+            @Helper.ImageUploader(0, "Image", Model.Image, "Cliquez glisser une photo")
+        </fieldset>
+        <input type='submit' name='submit' value="Enregistrer" class="form-control btn-primary">
+    </form>
+    <div class="cancel">
+        <a href='/Photos/List' class="form-control btn-primary">
+            Annuler
+        </a>
+    </div>
+
+</div>

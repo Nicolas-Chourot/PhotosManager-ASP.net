@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "Connexion";
+    string currentLoginEmail = Session["currentLoginEmail"] != null ? (string)Session["currentLoginEmail"] : "";
+    string loginMessage = Session["LoginMessage"] != null ? (string)Session["LoginMessage"] : "";
+}
+
+<br>
+<div class="content loginForm">
+    <h3>@loginMessage</h3>
+    <br>
+    <form method="POST" action="/Accounts/Login">
+        <input type='email'
+               name='Email'
+               id='Email'
+               class="form-control"
+               autocomplete="email"
+               required
+               RequireMessage='Veuillez entrer votre courriel'
+               CustomErrorMessage='Courriel inexistant'
+               InvalidMessage='Courriel invalide'
+               placeholder="adresse de courriel"
+               value=@currentLoginEmail>
+
+        <input type='password'
+               name='Password'
+               id='Password'
+               placeholder='Mot de passe'
+               class="form-control"
+               autocomplete="current-password"
+               required
+               RequireMessage='Veuillez entrer votre mot de passe'
+               CustomErrorMessage='Mot de passe incorrect'>
+
+        <input type='submit' name='submit' id="submit" value="Entrer" class="form-control btn-primary">
+    </form>
+    <div class="form">
+        <hr>
+        <a href='/Accounts/Subscribe' class="form-control btn-primary">
+            Nouveau compte
+        </a>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script defer>
+        initFormValidation();
+    </script>
+}
