@@ -93,7 +93,7 @@ namespace PhotosManager.Controllers
             return RedirectToAction("List", "Photos");
         }
         [UserAccess]
-        public ActionResult Delete()
+        public ActionResult DeleteProfil()
         {
             User connectedUser = (User)Session["ConnectedUser"];
             DB.Users.Delete(connectedUser.Id);
