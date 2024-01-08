@@ -9,33 +9,36 @@
 
     @foreach (var photo in Model)
     {
-        bool writeAccess = connectedUser.IsAdmin || photo.OwnerId == connectedUser.Id;
-        <div class="photoLayout">
-            <div class="photoTitleContainer" title="@photo.Description">
-                <div class="photoTitle ellipsis">@photo.Title</div>
-                @if (writeAccess)
-                {
-                    <a href="/Photos/Edit/@photo.Id" class="cmdIconSmall fa fa-pencil" title="Editer @photo.Title"> </a>
-                    @Helper.IconConfirmCmd("/Photos/Delete/" + photo.Id, "cmdIconSmall fa fa-trash", "<h5>Effacer la photo \"" + photo.Title + "\" ?</h5>")
-                }
-            </div>
-            <a href="/Photos/Details/@photo.Id">
-                <div class="photoImage" style="background-image:url('@photo.Image')">
-                    <div class="UserSmallAvatar transparentBackground" style="background-image: url('@photo.Owner.Avatar')" title="@photo.Owner.Name"></div>
+        if (connectedUser.IsAdmin || photo.Shared)
+        {
+            bool writeAccess = connectedUser.IsAdmin || photo.OwnerId == connectedUser.Id;
+            <div class="photoLayout">
+                <div class="photoTitleContainer" title="@photo.Description">
+                    <div class="photoTitle ellipsis">@photo.Title</div>
                     @if (writeAccess)
                     {
-                        <div class="UserSmallAvatar transparentBackground" style="background-image:url('/Content/images/shared.png')" title="partagée"></div>
+                        <a href="/Photos/Edit/@photo.Id" class="cmdIconSmall fa fa-pencil" title="Editer @photo.Title"> </a>
+                        @Helper.IconConfirmCmd("/Photos/Delete/" + photo.Id, "cmdIconSmall fa fa-trash", "<h5>Effacer la photo \"" + photo.Title + "\" ?</h5>")
                     }
                 </div>
-                <div class="photoCreationDate">
-                    @Helper.When(photo.CreationDate)
-                    <div class="likesSummary">
-                        @photo.Likes
-                        <i class="cmdIconSmall fa-regular fa-thumbs-up"></i>
+                <a href="/Photos/Details/@photo.Id">
+                    <div class="photoImage" style="background-image:url('@photo.Image')">
+                        <div class="UserSmallAvatar transparentBackground" style="background-image: url('@photo.Owner.Avatar')" title="@photo.Owner.Name"></div>
+                        @if (writeAccess && photo.Shared)
+                        {
+                            <div class="UserSmallAvatar transparentBackground" style="background-image:url('/Content/images/shared.png')" title="partagée"></div>
+                        }
                     </div>
-                </div>
-            </a>
-        </div>
+                    <div class="photoCreationDate">
+                        @Helper.When(photo.CreationDate)
+                        <div class="likesSummary">
+                            @photo.Likes
+                            <i class="cmdIconSmall fa-regular fa-thumbs-up"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
     }
 </div>
 @section Scripts

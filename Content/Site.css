@@ -246,3 +246,24 @@ div2, a2, i2, span2 {
         margin-bottom: 0px !important;
         margin-top: 0px !important;
     }
+
+.btn-primary {
+    background-color: dodgerblue !important;
+    color: white;
+    text-align: center !important;
+}
+.btn-secondary {
+    background-color: green !important;
+    color: white;
+    text-align: center !important;
+}
+.btn-cancel {
+    background-color: gray !important;
+    color: white;
+    text-align: center !important;
+}
+.btn-danger {
+    background-color: darkRed !important;
+    color: white;
+    text-align: center !important;
+}

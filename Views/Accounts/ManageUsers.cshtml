@@ -1,0 +1,32 @@
+﻿
+@model IEnumerable<PhotosManager.Models.User>
+@{
+    ViewBag.Title = "Gestion des usagers";
+    var connectedUser = (PhotosManager.Models.User)Session["ConnectedUser"];
+}
+@foreach (var user in Model)
+{
+    if (user.Id != connectedUser.Id)
+    {
+        string typeIcon = user.AccessType == 0 ? "fas fa-user-alt" : "fas fa-user-cog";
+        string typeTitle = user.AccessType == 0 ? "Octroyer le droit administrateur à" : "Retirer le droit administrateur à";
+        string blockedClass = user.Blocked ? "cmdIconVisible fa fa-ban redCmd" : "cmdIconVisible fa-regular fa-circle greenCmd";
+        string blockedTitle = user.Blocked ? "Débloquer $name" : "Bloquer $name";
+        <div class="UserRow">
+            <div class="UserContainer noselect">
+                <div class="UserLayout">
+                    <div class="UserAvatar" style="background-image:url('@user.Avatar')"></div>
+                    <div class="UserInfo">
+                        <span class="UserName">@user.Name</span>
+                        <a href="mailto:@user.Email" class="UserEmail" target="_blank">@user.Email</a>
+                    </div>
+                </div>
+                <div class="UserCommandPanel">
+                    <a href="/Accounts/TooglePromoteUser/@user.Id" class="cmdIconVisible @typeIcon" title="@typeTitle @user.Name"></a>
+                    <a href="/Accounts/ToogleBlockUser/@user.Id" class="@blockedClass" title="@blockedTitle"></a>
+                    @Helper.IconConfirmCmd("/Accounts/DeleteUser/" + user.Id, "cmdIconVisible fas fa-user-slash goldenrodCmd", "Effacer " + user.Name)
+                </div>
+            </div>
+        </div>
+    }
+}

@@ -8,6 +8,7 @@ using System.Web.Razor.Tokenizer.Symbols;
 
 namespace PhotosManager.Controllers
 {
+    [UserAccess]
     public class PhotosController : Controller
     {
         public ActionResult SetPhotoOwnerSearchId(int id)
@@ -30,7 +31,7 @@ namespace PhotosManager.Controllers
             switch ((string)Session["PhotosSortType"])
             {
                 case "likes":
-                    list = DB.Photos.ToList().OrderByDescending(p => p.Likes).ToList();
+                    list = DB.Photos.ToList().OrderByDescending(p => p.Likes).ThenByDescending(p => p.CreationDate).ToList();
                     break;
                 case "owner":
                     list = DB.Photos.ToList().Where(p => p.OwnerId == ((User)Session["ConnectedUser"]).Id).OrderByDescending(p => p.CreationDate).ToList();
@@ -82,20 +83,40 @@ namespace PhotosManager.Controllers
             DB.Photos.Add(photo);
             return RedirectToAction("List");
         }
-        public ActionResult Update()
+        public ActionResult Edit(int id)
         {
-            return View(new Photo());
+            Photo photo = DB.Photos.Get(id);
+            if (photo != null)
+            {
+                return View(photo);
+            }
+            return RedirectToAction("List");
         }
         [HttpPost]
-        public ActionResult Update(Photo photo)
+        public ActionResult Edit(Photo photo)
         {
-            DB.Photos.Add(photo);
+            DB.Photos.Update(photo);
+            return RedirectToAction("List");
+        }
+        public ActionResult Details(int id)
+        {
+            Photo photo = DB.Photos.Get(id);
+            if (photo != null)
+            {
+                return View(photo);
+            }
             return RedirectToAction("List");
         }
         public ActionResult Delete(int id)
         {
             DB.Photos.Delete(id);
             return RedirectToAction("List");
+        }
+        public ActionResult TogglePhotoLike(int id)
+        {
+            User connectedUser = (User)Session["ConnectedUser"];
+            DB.Likes.ToogleLike(id, connectedUser.Id);
+            return RedirectToAction("Details/" + id);
         }
     }
 }

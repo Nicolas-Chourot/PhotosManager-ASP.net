@@ -133,9 +133,19 @@
         </span>
     </a>
 }
+
+@helper ButtonConfirmCmd(string actionUrl, string btn_class, string caption, string TooltipMessage, string ToolTipPlacement = "bottom")
+{
+    <button onclick="bootbox.confirm('@TooltipMessage', function(result){ if (result) window.location.href = '@actionUrl'; })"
+            class="@btn_class"
+            title="@TooltipMessage"
+            data-placement="@ToolTipPlacement">
+        @caption
+    </button>
+}
 @helper IconConfirmCmd(string actionUrl, string icon_class, string TooltipMessage, string ToolTipPlacement = "bottom")
 {
-   <div onclick="bootbox.confirm('@TooltipMessage', function(result){ if (result) window.location.href = '@actionUrl'; })">
+    <div onclick="bootbox.confirm('@TooltipMessage', function(result){ if (result) window.location.href = '@actionUrl'; })">
         <span class="@icon_class"
               title="@TooltipMessage"
               data-placement="@ToolTipPlacement">

@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Connexion";
     string currentLoginEmail = Session["currentLoginEmail"] != null ? (string)Session["currentLoginEmail"] : "";
-    string loginMessage = Session["LoginMessage"] != null ? (string)Session["LoginMessage"] : "";
+    string loginMessage = (string)Session["LoginMessage"];
 }
 
 <br>
@@ -17,7 +17,7 @@
                autocomplete="email"
                required
                RequireMessage='Veuillez entrer votre courriel'
-               CustomErrorMessage='Courriel inexistant'
+               CustomErrorMessage='Courriel invalide'
                InvalidMessage='Courriel invalide'
                placeholder="adresse de courriel"
                value=@currentLoginEmail>
@@ -36,7 +36,7 @@
     </form>
     <div class="form">
         <hr>
-        <a href='/Accounts/Subscribe' class="form-control btn-primary">
+        <a href='/Accounts/Subscribe' class="form-control btn-secondary">
             Nouveau compte
         </a>
     </div>

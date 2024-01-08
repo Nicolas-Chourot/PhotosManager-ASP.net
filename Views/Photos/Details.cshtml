@@ -1,0 +1,37 @@
+﻿@model PhotosManager.Models.Photo
+@{
+    ViewBag.Title = "Détails de photo";
+
+    int userId = ((PhotosManager.Models.User)Session["ConnectedUser"]).Id;
+
+    bool userLike = PhotosManager.Models.DB.Likes.ToList().Exists(l => (l.PhotoId == Model.Id && l.UserId == userId));
+
+    string photoLikedByConnectedUser = userLike ? "fa" : "fa-regular";
+
+    string likesUsersList = "";
+
+    foreach (var like in PhotosManager.Models.DB.Likes.ToList().Where(l => l.PhotoId == Model.Id))
+    {
+        likesUsersList += PhotosManager.Models.DB.Users.Get(like.UserId).Name + "\n";
+    }
+}
+
+<div class="content">
+    <div class="photoDetailsOwner">
+        <div class="UserSmallAvatar" style="background-image:url('@Model.Owner.Avatar')" title="@Model.Owner.Name"></div>
+        @Model.Owner.Name
+    </div>
+    <hr>
+    <div class="photoDetailsTitle">@Model.Title</div>
+    <img src="@Model.Image" class="photoDetailsLargeImage">
+    <div class="photoDetailsCreationDate">
+        @Helper.When(Model.CreationDate)
+        <div class="likesSummary">
+            @Model.Likes
+            <a href="/Photos/TogglePhotoLike/@Model.Id" class="cmdIconSmall @photoLikedByConnectedUser fa-thumbs-up" id="addRemoveLikeCmd" title="@Html.Raw(likesUsersList)"></a>
+        </div>
+        <div class="photoDetailsDescription">@Model.Description</div>
+    </div>
+</div>
+
+

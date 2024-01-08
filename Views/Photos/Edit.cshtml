@@ -1,0 +1,48 @@
+﻿@model PhotosManager.Models.Photo
+@{
+    ViewBag.Title = "Modification de photo";
+}
+
+<div class="content loginForm">
+    <br>
+    <form method='post' action='/Photos/Edit'>
+        <input type="hidden" name="Id" value=@Model.Id>
+        <input type="hidden" name="CreationDate" value="@Model.CreationDate">
+        <input type="hidden" name="OwnerId" value="@Model.OwnerId">
+        <input type="hidden" name="Likes" value="@Model.Likes">
+        <fieldset>
+            <legend>Informations</legend>
+            <input type="text"
+                   class="form-control Alpha"
+                   name="Title"
+                   id="Title"
+                   placeholder="Titre"
+                   required
+                   RequireMessage='Veuillez entrer un titre'
+                   InvalidMessage='Le titre contient des caractères spéciaux' 
+                   value="@Model.Title"/>
+
+            <textarea class="form-control Alpha"
+                      name="Description"
+                      id="Description"
+                      placeholder="Description"
+                      rows="4"
+                      required
+                      RequireMessage='Veuillez entrer une Description'>@Model.Description</textarea>
+
+            @Html.CheckBoxFor(m => m.Shared)
+            <label for="Shared">Partagée</label>
+        </fieldset>
+        <fieldset>
+            <legend>Photo</legend>
+            @Helper.ImageUploader(Model.Id, "Image", Model.Image, "Cliquez glisser une photo")
+        </fieldset>
+        <input type='submit' name='submit' value="Enregistrer" class="form-control btn-primary">
+    </form>
+    <div class="cancel">
+        <a href='/Photos/List' class="form-control btn-cancel">
+            Annuler
+        </a>
+    </div>
+
+</div>

@@ -28,7 +28,7 @@ namespace PhotosManager.Models
             Shared = false;
             Image = PhotosFolder + DefaultPhoto;
         }
-
+        [JsonIgnore]
         public User Owner
         {
             get
