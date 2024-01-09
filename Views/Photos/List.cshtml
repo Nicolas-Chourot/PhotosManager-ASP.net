@@ -21,7 +21,7 @@
                         @Helper.IconConfirmCmd("/Photos/Delete/" + photo.Id, "cmdIconSmall fa fa-trash", "<h5>Effacer la photo \"" + photo.Title + "\" ?</h5>")
                     }
                 </div>
-                <a href="/Photos/Details/@photo.Id">
+                <a href="/Photos/Details/@photo.Id" title="Afficher les détails de @photo.Title">
                     <div class="photoImage" style="background-image:url('@photo.Image')">
                         <div class="UserSmallAvatar transparentBackground" style="background-image: url('@photo.Owner.Avatar')" title="@photo.Owner.Name"></div>
                         @if (writeAccess && photo.Shared)

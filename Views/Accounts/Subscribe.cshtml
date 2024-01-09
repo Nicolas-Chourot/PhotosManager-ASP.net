@@ -6,7 +6,7 @@
 <div class="content loginForm">
     <br>
     <form method="POST" action="/Accounts/Subscribe">
-        {
+        @Html.AntiForgeryToken()
         <fieldset>
             <legend>Adresse ce courriel</legend>
             <input type="email"
@@ -66,21 +66,20 @@
             @Helper.ImageUploader(0, "Avatar", Model.Avatar, "Cliquez glisser une photo")
         </fieldset>
 
-        <input type='submit' name='submit' id='saveUser' value="Enregistrer" class="form-control btn-primary">
+        <input type='submit' name='submit' id='subscribe-submit-btn' value="Enregistrer" class="form-control btn-primary">
     </form>
     <div class="cancel">
-        <a href='/Accounts/Delete/@Model.Id' class="form-control btn-cancel">
-            Effacer mon compte
+        <a href='/Accounts/Login' class="form-control btn-cancel">
+            Annuler
         </a>
     </div>
-
 </div>
 
 @section Scripts
 {
     <script defer>
         //initFormValidation(); inclue dans initImageUploaders()
-        addConflictValidation('/Accounts/EmailExist', 'Email', 'saveUser');
+        addConflictValidation('/Accounts/EmailExist', 'Email', 'subscribe-submit-btn');
     </script>
 }
 

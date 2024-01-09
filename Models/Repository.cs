@@ -29,6 +29,8 @@ namespace PhotosManager.Models
         #region "Méthodes et propritées privées"
         // Pour indiquer si une transaction est en cours
         static bool TransactionOnGoing = false;
+        // Pour la gestion d'imbrications de transactions
+        static int  NestedTransactionsCount = 0;
         // utilisé pour prévenir des conflits entre processus
         static private readonly Mutex mutex = new Mutex();
         // cache des données du fichier JSON
@@ -112,6 +114,9 @@ namespace PhotosManager.Models
                             string newAssetServerPath;
                             string[] base64Data = propValue.Split(',');
                             string extension = base64Data[0].Replace(";base64", "").Split('/')[1];
+                            // Mime patch IIS : does not support webp and avif mimes
+                            if (extension.ToLower() == "webp") extension = "png";
+                            if (extension.ToLower() == "avif") extension = "png";
                             string assetData = base64Data[1];
                             string assetUrl;
                             do
@@ -206,7 +211,7 @@ namespace PhotosManager.Models
                 // s'assurer que la propriété int Id {get; set;} est belle et bien dans la classe T
                 var idExist = AttributeNameExist("Id");
                 if (!idExist)
-                    throw new Exception("The class Repository cannot work with type that does not contain an attribute named Id of type int.");
+                    throw new Exception("The class Repository cannot work with types that does not contain an attribute named Id of type int.");
             }
             catch (Exception e)
             {
@@ -233,11 +238,23 @@ namespace PhotosManager.Models
                 mutex.WaitOne();
                 TransactionOnGoing = true;
             }
+            else
+            {
+                NestedTransactionsCount++;
+            }
         }
         public void EndTransaction()
         {
-            TransactionOnGoing = false;
-            mutex.ReleaseMutex();
+            if (NestedTransactionsCount <= 0)
+            {
+                TransactionOnGoing = false;
+                mutex.ReleaseMutex();
+            }
+            else
+            {
+                if (NestedTransactionsCount > 0)
+                    NestedTransactionsCount--;
+            }
         }
         // Init : reçoit le chemin d'accès absolue du fichier JSON
         // Cette méthode doit avoir été appelée avant tout

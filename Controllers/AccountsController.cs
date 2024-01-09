@@ -25,7 +25,7 @@ namespace PhotosManager.Controllers
         }
         public ActionResult ExpiredSession()
         {
-            return RedirectToAction("Login?message=Session expirée, veuillez vous reconnecter.");
+            return Redirect("/Accounts/Login?message=Session expirée, veuillez vous reconnecter.");
         }
         public ActionResult Logout()
         {
@@ -67,10 +67,11 @@ namespace PhotosManager.Controllers
             return View(new User());
         }
         [HttpPost]
+        [ValidateAntiForgeryToken()]
         public ActionResult Subscribe(User user)
         {
             DB.Users.Add(user);
-            return RedirectToAction("Login?message=Création de compte effectué avec succès!");
+            return Redirect("/Accounts/Login?message=Création de compte effectué avec succès!");
         }
         [UserAccess]
         public ActionResult EditProfil()
@@ -86,6 +87,10 @@ namespace PhotosManager.Controllers
         [HttpPost]
         public ActionResult EditProfil(User user)
         {
+            User connectedUser = (User)Session["connectedUser"];
+            user.Id = connectedUser.Id;
+            user.Blocked = false;
+            user.AccessType = connectedUser.AccessType;
             if (DB.Users.Update(user))
             {
                 Session["connectedUser"] = DB.Users.Get(user.Id);

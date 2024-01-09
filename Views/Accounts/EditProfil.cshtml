@@ -66,20 +66,18 @@
             @Helper.ImageUploader(Model.Id, "Avatar", Model.Avatar, "Cliquez glisser une photo")
         </fieldset>
 
-        <input type='submit' name='submit' id='saveUser' value="Enregistrer" class="form-control btn-primary">
+        <input type='submit' name='submit' id='updateProfil-submit-btn' value="Enregistrer" class="form-control btn-primary">
 
     </form>
     <div class="cancel">
-        <a href='/Photos/List' class="form-control btn-cancel">
-            Annuler
-        </a>
+        <a href='/Photos/List' class="form-control btn-cancel"> Annuler </a>
         <hr>
-        @Helper.ButtonConfirmCmd("/Accounts/DeleteProfil", "form-control btn-danger", "Effacer mon compte","Voulez-vous vraiment effacer votre compte et toutes vos photos?")
-       
+        @Helper.ButtonConfirmCmd("/Accounts/DeleteProfil", "form-control btn-danger", "Effacer mon compte", "Voulez-vous vraiment effacer votre compte et toutes vos photos?")
     </div>
-    @section Scripts {
-        <script defer>
-            addConflictValidation('/Accounts/EmailConflict', 'Email', 'saveUser');
-        </script>
-    }
+</div>
+@section Scripts {
+    <script defer>
+        addConflictValidation('/Accounts/EmailConflict', 'Email', 'updateProfil-submit-btn');
+    </script>
+}
 

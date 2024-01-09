@@ -86,11 +86,16 @@ namespace PhotosManager.Controllers
         public ActionResult Edit(int id)
         {
             Photo photo = DB.Photos.Get(id);
+            User connectedUser = (User)Session["ConnectedUser"];
             if (photo != null)
             {
-                return View(photo);
+                if (connectedUser.IsAdmin || photo.OwnerId == connectedUser.Id)
+                {
+                    return View(photo);
+                }
+                return RedirectToAction("List");
             }
-            return RedirectToAction("List");
+            return Redirect("/Accounts/Login?message=Tentative d'accès illégale!");
         }
         [HttpPost]
         public ActionResult Edit(Photo photo)
@@ -109,8 +114,17 @@ namespace PhotosManager.Controllers
         }
         public ActionResult Delete(int id)
         {
-            DB.Photos.Delete(id);
-            return RedirectToAction("List");
+            Photo photo = DB.Photos.Get(id);
+            User connectedUser = (User)Session["ConnectedUser"];
+            if (photo != null)
+            {
+                if (connectedUser.IsAdmin || photo.OwnerId == connectedUser.Id)
+                {
+                    DB.Photos.Delete(id);
+                    return RedirectToAction("List");
+                }
+            }
+            return Redirect("/Accounts/Login?message=Tentative d'accès illégale!");
         }
         public ActionResult TogglePhotoLike(int id)
         {
