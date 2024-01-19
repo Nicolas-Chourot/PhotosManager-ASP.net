@@ -11,6 +11,8 @@ namespace PhotosManager.Controllers
     [UserAccess]
     public class PhotosController : Controller
     {
+        const string IllegalAccessUrl = "/Accounts/Login?message=Tentative d'accès illégale!";
+
         public ActionResult SetPhotoOwnerSearchId(int id)
         {
             Session["photoOwnerSearchId"] = id;
@@ -78,6 +80,7 @@ namespace PhotosManager.Controllers
             return View(new Photo());
         }
         [HttpPost]
+        [ValidateAntiForgeryToken()]
         public ActionResult Create(Photo photo)
         {
             DB.Photos.Add(photo);
@@ -95,36 +98,48 @@ namespace PhotosManager.Controllers
                 }
                 return RedirectToAction("List");
             }
-            return Redirect("/Accounts/Login?message=Tentative d'accès illégale!");
+            return Redirect(IllegalAccessUrl);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken()]
         public ActionResult Edit(Photo photo)
         {
-            DB.Photos.Update(photo);
-            return RedirectToAction("List");
+            User connectedUser = ((User)Session["ConnectedUser"]);
+            if (connectedUser.IsAdmin || photo.OwnerId == connectedUser.Id)
+            {
+                DB.Photos.Update(photo);
+                return RedirectToAction("List");
+            }
+            return Redirect(IllegalAccessUrl);
         }
         public ActionResult Details(int id)
         {
             Photo photo = DB.Photos.Get(id);
             if (photo != null)
             {
-                return View(photo);
+                User connectedUser = ((User)Session["ConnectedUser"]);
+                if (connectedUser.IsAdmin || photo.Shared)
+                    return View(photo);
+                else
+                    return Redirect(IllegalAccessUrl);
             }
             return RedirectToAction("List");
         }
         public ActionResult Delete(int id)
         {
             Photo photo = DB.Photos.Get(id);
-            User connectedUser = (User)Session["ConnectedUser"];
             if (photo != null)
             {
+                User connectedUser = (User)Session["ConnectedUser"];
                 if (connectedUser.IsAdmin || photo.OwnerId == connectedUser.Id)
                 {
                     DB.Photos.Delete(id);
                     return RedirectToAction("List");
                 }
+                else
+                    return Redirect(IllegalAccessUrl);
             }
-            return Redirect("/Accounts/Login?message=Tentative d'accès illégale!");
+            return Redirect(IllegalAccessUrl);
         }
         public ActionResult TogglePhotoLike(int id)
         {

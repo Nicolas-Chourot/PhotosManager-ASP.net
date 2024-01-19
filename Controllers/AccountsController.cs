@@ -39,6 +39,7 @@ namespace PhotosManager.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken()]
         public ActionResult Login(LoginCredential credential)
         {
             credential.Email = credential.Email.Trim();
@@ -85,12 +86,13 @@ namespace PhotosManager.Controllers
         }
         [UserAccess]
         [HttpPost]
+        [ValidateAntiForgeryToken()]
         public ActionResult EditProfil(User user)
         {
             User connectedUser = (User)Session["connectedUser"];
             user.Id = connectedUser.Id;
             user.Blocked = false;
-            user.AccessType = connectedUser.AccessType;
+            user.Admin = connectedUser.Admin;
             if (DB.Users.Update(user))
             {
                 Session["connectedUser"] = DB.Users.Get(user.Id);
@@ -115,7 +117,7 @@ namespace PhotosManager.Controllers
             User user = DB.Users.Get(id);
             if (user != null)
             {
-                user.AccessType = user.AccessType == 1 ? 0 : 1;
+                user.Admin = !user.Admin;
                 DB.Users.Update(user); 
             }
             return RedirectToAction("ManageUsers");

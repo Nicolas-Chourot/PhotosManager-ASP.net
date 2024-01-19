@@ -17,7 +17,7 @@ namespace PhotosManager.Models
             Id = 0;
             Blocked = false;
             Avatar = AvatarsFolder + DefaultAvatar;
-            AccessType = 0; // user => 0 , admin => 1
+            Admin = false;
         }
         public User Clone()
         {
@@ -28,7 +28,7 @@ namespace PhotosManager.Models
         public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public int AccessType { get; set; }
+        public bool Admin { get; set; }
         public bool Blocked { get; set; }
 
         [Asset(AvatarsFolder)]
@@ -37,7 +37,7 @@ namespace PhotosManager.Models
 
         #region View members
         [JsonIgnore]
-        public bool IsAdmin { get { return AccessType == 1 /* Admin */; } }
+        public bool IsAdmin { get { return Admin; } }
         [JsonIgnore]
         public bool IsBlocked { get { return Blocked; } }
         #endregion

@@ -10,6 +10,7 @@
     <h3>@loginMessage</h3>
     <br>
     <form method="POST" action="/Accounts/Login">
+        @Html.AntiForgeryToken()
         <input type='email'
                name='Email'
                id='Email'

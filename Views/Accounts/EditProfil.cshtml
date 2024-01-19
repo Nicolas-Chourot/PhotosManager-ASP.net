@@ -5,9 +5,7 @@
 <div class="content">
     <br>
     <form method='post' action='/Accounts/EditProfil'>
-        <input type="hidden" name="Id" id="Id" value="@Model.Id" />
-        <input type="hidden" name="AccessType" id="AccessType" value="@Model.AccessType" />
-        <input type="hidden" name="Blocked" id="Blocked" value="@Model.Blocked" />
+        @Html.AntiForgeryToken()
         <fieldset>
             <legend>Adresse ce courriel</legend>
             <input type="email"

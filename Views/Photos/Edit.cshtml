@@ -6,6 +6,7 @@
 <div class="content loginForm">
     <br>
     <form method='post' action='/Photos/Edit'>
+        @Html.AntiForgeryToken()
         <input type="hidden" name="Id" value=@Model.Id>
         <input type="hidden" name="CreationDate" value="@Model.CreationDate">
         <input type="hidden" name="OwnerId" value="@Model.OwnerId">
@@ -19,8 +20,8 @@
                    placeholder="Titre"
                    required
                    RequireMessage='Veuillez entrer un titre'
-                   InvalidMessage='Le titre contient des caractères spéciaux' 
-                   value="@Model.Title"/>
+                   InvalidMessage='Le titre contient des caractères spéciaux'
+                   value="@Model.Title" />
 
             <textarea class="form-control Alpha"
                       name="Description"

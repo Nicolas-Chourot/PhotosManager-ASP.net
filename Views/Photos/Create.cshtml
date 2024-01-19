@@ -7,6 +7,7 @@
 <div class="content loginForm">
     <br>
     <form method='post' action='/Photos/Create'>
+        @Html.AntiForgeryToken()
         <input type="hidden" name="OwnerId" value=@ownerId>
         <fieldset>
             <legend>Informations</legend>
