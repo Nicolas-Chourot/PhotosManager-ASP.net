@@ -1,1 +1,38 @@
-[{"Id":1,"Name":"Nicolas Chourots","Email":"Nicolas.Chourot@clg.qc.ca","Password":"password","Admin":true,"Blocked":false,"Avatar":"/Images_Data/Users_Avatars/b67b1459-de20-49c0-8205-33f218e6a644.jpeg"},{"Id":2,"Name":"Saliha Yacoub","Email":"Saliha.Yacoub@clg.qc.ca","Password":"password","Admin":false,"Blocked":false,"Avatar":"/Images_Data/Users_Avatars/6035d52d-c2f8-445a-ac30-5deff4e9c5fd.jpeg"},{"Id":3,"Name":"Stéphane Chassé","Email":"Stephane.Chasse@clg.qc.ca","Password":"password","Admin":false,"Blocked":false,"Avatar":"/Images_Data/Users_Avatars/70e8bebf-b2b2-4c03-bad8-68eed5c8c3b0.png"},{"Id":4,"Name":"Patrice Roy","Email":"Patrice.Roy@clg.qc.ca","Password":"password","Admin":false,"Blocked":false,"Avatar":"/Images_Data/Users_Avatars/05cb180e-c921-4719-8eb7-30fa6789e5f7.png"}]
+[
+  {
+    "Id": 1,
+    "Name": "Nicolas Chourot",
+    "Email": "Nicolas.Chourot@clg.qc.ca",
+    "Password": "zi3JoXHV6onvD8vocfNHobU3/kUW31ORtq8pVSinpqY=p5n3pvhdDWZpojypXfNCAW+I0Zk=",
+    "Admin": true,
+    "Blocked": false,
+    "Avatar": "/Images_Data/Users_Avatars/b67b1459-de20-49c0-8205-33f218e6a644.jpeg"
+  },
+  {
+    "Id": 2,
+    "Name": "Saliha Yacoub",
+    "Email": "Saliha.Yacoub@clg.qc.ca",
+    "Password": "KinCHBiRYYJLOw/cLInNXUlUf0sdWElvnCgZWvRT3aA=+xosG6141N2JVYunhvn61AVoWuI=",
+    "Admin": false,
+    "Blocked": false,
+    "Avatar": "/Images_Data/Users_Avatars/6035d52d-c2f8-445a-ac30-5deff4e9c5fd.jpeg"
+  },
+  {
+    "Id": 3,
+    "Name": "Stéphane Chassé",
+    "Email": "Stephane.Chasse@clg.qc.ca",
+    "Password": "mOqQBiFYCwAH0QhXQq7eHSED4eiJtKCAWWkVAaIbHiQ=2g3B0miUnAgehEqAh8dnn8/fmP4=",
+    "Admin": false,
+    "Blocked": false,
+    "Avatar": "/Images_Data/Users_Avatars/70e8bebf-b2b2-4c03-bad8-68eed5c8c3b0.png"
+  },
+  {
+    "Id": 4,
+    "Name": "Patrice Roy",
+    "Email": "Patrice.Roy@clg.qc.ca",
+    "Password": "TNlM1IBBz8WmNYcgtITAAbxDJhOrKRPcj5/4FEw0H7g=d1eeSloDFnVfXivx+PRV62gFpbA=",
+    "Admin": false,
+    "Blocked": false,
+    "Avatar": "/Images_Data/Users_Avatars/05cb180e-c921-4719-8eb7-30fa6789e5f7.png"
+  }
+]
